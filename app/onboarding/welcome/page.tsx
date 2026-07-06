@@ -1,10 +1,12 @@
 "use client";
 
+"use client";
+
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
+import Progress from "@/components/ui/progress";
 import WizardCard from "@/components/onboarding/wizard-card";
 import StepHeader from "@/components/onboarding/step-header";
 
