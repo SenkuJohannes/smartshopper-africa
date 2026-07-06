@@ -1,4 +1,4 @@
-<ScannerHeader />
+"use client";
 
 import { useEffect, useState } from "react";
 import { Scanner } from "@yudiel/react-qr-scanner";
