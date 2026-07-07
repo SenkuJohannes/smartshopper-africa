@@ -59,28 +59,31 @@ export default function LoyaltyPage() {
     },
   ];
 
-  function continueToReview() {
+  function continueToBranding() {
     if (!data.loyaltyType) {
       alert("Please choose a loyalty program.");
       return;
     }
 
-    router.push("/onboarding/review");
+    router.push("/onboarding/branding");
   }
 
   return (
     <StepLayout
-      step={5}
+      step={4}
       title="Choose your loyalty program"
       description="We'll build everything around this choice."
       navigation={
         <Navigation
-          back="/onboarding/branding"
+          back="/onboarding/account"
           nextLabel="Continue"
-          onNext={continueToReview}
+          nextDisabled={!data.loyaltyType}
+          onNext={continueToBranding}
         />
       }
     >
+      {/* Recommendation */}
+
       <div className="mb-6 rounded-xl border border-green-200 bg-green-50 p-4">
         <p className="font-medium text-green-800">
           Recommended for your business
@@ -92,6 +95,8 @@ export default function LoyaltyPage() {
         </p>
       </div>
 
+      {/* Options */}
+
       <div className="grid gap-5 md:grid-cols-2">
         {options.map((option) => {
           const Icon = option.icon;
@@ -101,6 +106,7 @@ export default function LoyaltyPage() {
           return (
             <button
               key={option.id}
+              type="button"
               onClick={() =>
                 update({
                   loyaltyType: option.id,
@@ -117,7 +123,7 @@ export default function LoyaltyPage() {
 
                 ${
                   active
-                    ? "border-green-600 bg-green-50"
+                    ? "border-green-600 bg-green-50 shadow-md"
                     : "border-zinc-200 bg-white"
                 }
               `}
@@ -141,6 +147,12 @@ export default function LoyaltyPage() {
                 <span className="mt-4 inline-block rounded-full bg-green-600 px-3 py-1 text-xs font-medium text-white">
                   Recommended
                 </span>
+              )}
+
+              {active && (
+                <div className="mt-4 text-sm font-semibold text-green-700">
+                  ✓ Selected
+                </div>
               )}
             </button>
           );
