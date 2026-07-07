@@ -134,9 +134,6 @@ export default function DiscountCalculator({
 
       </div>
 
-<div className="bg-red-500 p-10 text-center text-white">
-  TEST HERO
-</div>
 
       {/* ================================================= */}
       {/* DISCOUNT HERO */}
