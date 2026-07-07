@@ -12,7 +12,7 @@ import {
   createDefaultProgram,
 } from "@/services/programs/create-default-program";
 
-import { supabaseAdmin } from "@/lib/supabase/server";
+import { supabaseAdmin } from "@/lib/supabase/admin";
 
 export interface WorkspaceResult {
   success: boolean;

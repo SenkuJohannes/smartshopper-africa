@@ -30,6 +30,10 @@ export interface OnboardingData {
 
   website: string;
 
+  // Authentication
+  password: string;
+  confirmPassword: string;
+
   address: string;
   city: string;
   province: string;
@@ -63,6 +67,10 @@ const defaultValues: OnboardingData = {
   phone: "",
 
   website: "",
+
+  // Authentication
+  password: "",
+  confirmPassword: "",
 
   address: "",
   city: "",

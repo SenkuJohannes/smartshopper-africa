@@ -38,7 +38,7 @@ export default function BusinessPage() {
         <Navigation
           back="/onboarding/welcome"
           nextLabel="Continue"
-          onNext={() => router.push("/onboarding/loyalty")}
+          onNext={() => router.push("/onboarding/account")}
         />
       }
     >

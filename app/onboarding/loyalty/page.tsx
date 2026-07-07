@@ -59,16 +59,25 @@ export default function LoyaltyPage() {
     },
   ];
 
+  function continueToReview() {
+    if (!data.loyaltyType) {
+      alert("Please choose a loyalty program.");
+      return;
+    }
+
+    router.push("/onboarding/review");
+  }
+
   return (
     <StepLayout
-      step={3}
+      step={5}
       title="Choose your loyalty program"
       description="We'll build everything around this choice."
       navigation={
         <Navigation
-          back="/onboarding/business"
-          next="/onboarding/branding"
-          nextDisabled={!data.loyaltyType}
+          back="/onboarding/branding"
+          nextLabel="Continue"
+          onNext={continueToReview}
         />
       }
     >
@@ -87,8 +96,7 @@ export default function LoyaltyPage() {
         {options.map((option) => {
           const Icon = option.icon;
 
-          const active =
-            data.loyaltyType === option.id;
+          const active = data.loyaltyType === option.id;
 
           return (
             <button
