@@ -36,12 +36,12 @@ export async function GET(
     manifest,
   });
 
-  return new NextResponse(pkpass, {
-    headers: {
-      "Content-Type":
-        "application/vnd.apple.pkpass",
-      "Content-Disposition":
-        'attachment; filename="SmartShopper.pkpass"',
-    },
-  });
+  const pkpassBytes = new Uint8Array(pkpass);
+
+return new Response(pkpassBytes, {
+  headers: {
+    "Content-Type": "application/vnd.apple.pkpass",
+    "Content-Disposition": `attachment; filename="${membershipId}.pkpass"`,
+  },
+});
 }

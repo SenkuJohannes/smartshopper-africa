@@ -3,7 +3,7 @@ import { LucideIcon } from "lucide-react";
 type Props = {
   title: string;
   value: string | number;
-  icon: LucideIcon;
+  icon?: LucideIcon;
 };
 
 export default function StatCard({
@@ -24,12 +24,14 @@ export default function StatCard({
           </h2>
         </div>
 
-        <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-green-100">
-          <Icon
-            size={28}
-            className="text-green-600"
-          />
-        </div>
+        {Icon && (
+          <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-green-100">
+            <Icon
+              size={28}
+              className="text-green-600"
+            />
+          </div>
+        )}
       </div>
     </div>
   );

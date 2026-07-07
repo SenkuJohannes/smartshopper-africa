@@ -44,9 +44,10 @@ export default async function CardPage({
       <div className="w-full max-w-md space-y-6">
 
         <LoyaltyCardHeader
-          program={card.program}
-          customer={card.customer}
-        />
+  program={card.program}
+  customer={card.customer}
+  membership={membership}
+/>
 
         <LoyaltyCardPoints
           points={membership?.current_points ?? 0}

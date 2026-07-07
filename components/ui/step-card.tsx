@@ -1,7 +1,8 @@
-import Card from "./card";
+import { ReactNode } from "react";
+import { Card } from "./card";
 
 interface Props {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 export default function StepCard({

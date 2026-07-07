@@ -2,6 +2,13 @@ import Link from "next/link";
 import { supabase } from "@/lib/supabase/client";
 import StatCard from "@/components/dashboard/stat-card";
 
+import {
+  Users,
+  Star,
+  Coffee,
+  Gift,
+} from "lucide-react";
+
 export default async function ProgramPage({
   params,
 }: {
@@ -56,93 +63,93 @@ export default async function ProgramPage({
           {program?.name}
         </h1>
 
-        <p className="text-gray-500 mt-2">
+        <p className="mt-2 text-gray-500">
           {program?.description}
         </p>
       </div>
 
       {/* KPI Cards */}
 
-      <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
+      <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
 
         <StatCard
           title="Members"
           value={members ?? 0}
-          icon="👥"
+          icon={Users}
         />
 
         <StatCard
           title="Points Issued"
           value={totalPoints}
-          icon="⭐"
+          icon={Star}
         />
 
         <StatCard
           title="Visits"
           value={totalVisits}
-          icon="☕"
+          icon={Coffee}
         />
 
         <StatCard
           title="Rewards"
           value={rewards ?? 0}
-          icon="🎁"
+          icon={Gift}
         />
 
       </div>
 
       {/* Quick Actions */}
 
-      <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-6 mt-10">
+      <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
 
         <Link
           href={`/dashboard/programs/${id}/customers`}
-          className="bg-white rounded-2xl shadow p-6 hover:shadow-lg transition"
+          className="rounded-2xl bg-white p-6 shadow transition hover:shadow-lg"
         >
           <h2 className="text-xl font-bold">
             👥 Customers
           </h2>
 
-          <p className="text-gray-500 mt-2">
+          <p className="mt-2 text-gray-500">
             View and manage members.
           </p>
         </Link>
 
         <Link
           href={`/dashboard/programs/${id}/rewards`}
-          className="bg-white rounded-2xl shadow p-6 hover:shadow-lg transition"
+          className="rounded-2xl bg-white p-6 shadow transition hover:shadow-lg"
         >
           <h2 className="text-xl font-bold">
             🎁 Rewards
           </h2>
 
-          <p className="text-gray-500 mt-2">
+          <p className="mt-2 text-gray-500">
             Manage customer rewards.
           </p>
         </Link>
 
         <Link
           href={`/dashboard/programs/${id}/campaigns`}
-          className="bg-white rounded-2xl shadow p-6 hover:shadow-lg transition"
+          className="rounded-2xl bg-white p-6 shadow transition hover:shadow-lg"
         >
           <h2 className="text-xl font-bold">
             📣 Campaigns
           </h2>
 
-          <p className="text-gray-500 mt-2">
+          <p className="mt-2 text-gray-500">
             Create marketing campaigns.
           </p>
         </Link>
 
         <Link
           href={`/dashboard/programs/${id}/transactions`}
-          className="bg-white rounded-2xl shadow p-6 hover:shadow-lg transition"
+          className="rounded-2xl bg-white p-6 shadow transition hover:shadow-lg"
         >
           <h2 className="text-xl font-bold">
             📈 Transactions
           </h2>
 
-          <p className="text-gray-500 mt-2">
+          <p className="mt-2 text-gray-500">
             View loyalty history.
           </p>
         </Link>
@@ -151,9 +158,9 @@ export default async function ProgramPage({
 
       {/* Recent Activity */}
 
-      <div className="bg-white rounded-2xl shadow p-8 mt-10">
+      <div className="mt-10 rounded-2xl bg-white p-8 shadow">
 
-        <h2 className="text-2xl font-bold mb-6">
+        <h2 className="mb-6 text-2xl font-bold">
           🔥 Recent Activity
         </h2>
 
@@ -170,7 +177,7 @@ export default async function ProgramPage({
                     {activity.description}
                   </p>
 
-                  <p className="text-gray-500 text-sm">
+                  <p className="text-sm text-gray-500">
                     {new Date(activity.created_at).toLocaleString()}
                   </p>
                 </div>
