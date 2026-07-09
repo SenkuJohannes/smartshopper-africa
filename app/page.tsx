@@ -26,18 +26,13 @@ export default function Home() {
         <div className="mt-10 flex flex-wrap justify-center gap-4">
 
           <Link
-            href="/register-business"
+            href="/onboarding/welcome"
             className="rounded-xl bg-green-600 px-8 py-4 text-lg font-semibold text-white transition hover:bg-green-700"
           >
             Start Free
           </Link>
 
-          <Link
-            href="/dashboard"
-            className="rounded-xl border border-slate-300 bg-white px-8 py-4 text-lg font-semibold text-slate-700 transition hover:bg-slate-100"
-          >
-            Dashboard Demo
-          </Link>
+        
 
         </div>
 

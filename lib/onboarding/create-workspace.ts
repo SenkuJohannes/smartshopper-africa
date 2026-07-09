@@ -36,10 +36,19 @@ type CreateWorkspaceInput = {
 export async function createWorkspace(
   input: CreateWorkspaceInput
 ) {
+  const started = Date.now();
+
+  console.log("🚀 Starting SmartShopper workspace creation...");
+  console.log("Business:", input.businessName);
+  console.log("Owner:", input.ownerName);
+  console.log("Email:", input.email);
+
   try {
     // ==========================================
     // STEP 1 - Create Auth User
     // ==========================================
+
+    console.log("① Creating Auth user...");
 
     const user = await createAuthUser({
       email: input.email,
@@ -47,9 +56,13 @@ export async function createWorkspace(
       ownerName: input.ownerName,
     });
 
+    console.log("✅ Auth user created:", user.id);
+
     // ==========================================
     // STEP 2 - Create Business
     // ==========================================
+
+    console.log("② Creating business...");
 
     const business = await createBusiness({
       ownerId: user.id,
@@ -70,9 +83,13 @@ export async function createWorkspace(
       secondaryColor: input.secondaryColor,
     });
 
+    console.log("✅ Business created:", business.id);
+
     // ==========================================
-    // STEP 3 - Create Loyalty Program
+    // STEP 3 - Create Program
     // ==========================================
+
+    console.log("③ Creating loyalty program...");
 
     const program = await createProgram({
       businessId: business.id,
@@ -93,30 +110,41 @@ export async function createWorkspace(
       address: input.address,
     });
 
+    console.log("✅ Program created:", program.id);
+
     // ==========================================
-    // STEP 4 - Create Default Scanner
+    // STEP 4 - Create Scanner
     // ==========================================
+
+    console.log("④ Creating scanner...");
 
     const scanner = await createScanner({
       businessId: business.id,
       programId: program.id,
     });
 
+    console.log("✅ Scanner created:", scanner.id);
+
     // ==========================================
-    // STEP 5 - Create Default Rewards
+    // STEP 5 - Create Rewards
     // ==========================================
+
+    console.log("⑤ Creating default rewards...");
 
     const rewards = await createDefaultRewards({
       programId: program.id,
     });
 
-    // ==========================================
-    // SUCCESS
-    // ==========================================
+    console.log(`✅ ${rewards.length} rewards created`);
+
+    console.log(
+      `🎉 Workspace created successfully in ${
+        Date.now() - started
+      }ms`
+    );
 
     return {
       success: true,
-
       user,
       business,
       program,
@@ -124,7 +152,8 @@ export async function createWorkspace(
       rewards,
     };
   } catch (error) {
-    console.error("Workspace creation failed:", error);
+    console.error("❌ Workspace creation failed");
+    console.error(error);
 
     throw error;
   }

@@ -12,14 +12,14 @@ export default function BrandingPage() {
 
   return (
     <StepLayout
-      step={4}
+      step={5}
       title="Brand Your Loyalty Program"
       description="Customize how your loyalty card will look to customers."
       navigation={
         <Navigation
-          back="/onboarding/account"
+          back="/onboarding/loyalty"
           nextLabel="Continue"
-          onNext={() => router.push("/onboarding/loyalty")}
+          onNext={() => router.push("/onboarding/review")}
         />
       }
     >

@@ -34,9 +34,9 @@ export async function createDefaultRewards({
     },
     {
       title: "Free Product",
-      description: "Redeem a free product.",
+      description: "Redeem one free product.",
       points_required: 5000,
-      reward_type: "product",
+      reward_type: "free_item",
     },
   ].map((reward) => ({
     ...reward,

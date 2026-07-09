@@ -1,160 +1,82 @@
-import { createAuthUser } from "./create-auth-user";
-import { createBusiness } from "./create-business";
-import { createProgram } from "./create-program";
-import { createScanner } from "./create-scanner";
-import { createDefaultRewards } from "./create-default-rewards";
+import { NextResponse } from "next/server";
+import { createWorkspace } from "@/lib/onboarding/create-workspace";
 
-type CreateWorkspaceInput = {
-  businessName: string;
-  ownerName: string;
-
-  email: string;
-  password: string;
-  phone: string;
-
-  website: string;
-
-  industry: string;
-
-  country: string;
-  currency: string;
-
-  loyaltyType:
-    | "points"
-    | "visits"
-    | "cashback"
-    | "membership";
-
-  primaryColor: string;
-  secondaryColor: string;
-
-  welcomeMessage: string;
-
-  address: string;
-};
-
-export async function createWorkspace(
-  input: CreateWorkspaceInput
-) {
-  const started = Date.now();
-
-  console.log("🚀 Starting SmartShopper workspace creation...");
-  console.log("Business:", input.businessName);
-  console.log("Owner:", input.ownerName);
-  console.log("Email:", input.email);
-
+export async function POST(request: Request) {
   try {
-    // ==========================================
-    // STEP 1 - Create Auth User
-    // ==========================================
+    const body = await request.json();
 
-    console.log("① Creating Auth user...");
+    const {
+      businessName,
+      ownerName,
+      email,
+      password,
+    } = body;
 
-    const user = await createAuthUser({
-      email: input.email,
-      password: input.password,
-      ownerName: input.ownerName,
-    });
+    if (!businessName?.trim()) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Business name is required.",
+        },
+        {
+          status: 400,
+        }
+      );
+    }
 
-    console.log("✅ Auth user created:", user.id);
+    if (!ownerName?.trim()) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Owner name is required.",
+        },
+        {
+          status: 400,
+        }
+      );
+    }
 
-    // ==========================================
-    // STEP 2 - Create Business
-    // ==========================================
+    if (!email?.trim()) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Email is required.",
+        },
+        {
+          status: 400,
+        }
+      );
+    }
 
-    console.log("② Creating business...");
+    if (!password || password.length < 8) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Password must be at least 8 characters.",
+        },
+        {
+          status: 400,
+        }
+      );
+    }
 
-    const business = await createBusiness({
-      ownerId: user.id,
+    const workspace = await createWorkspace(body);
 
-      businessName: input.businessName,
+    return NextResponse.json(workspace);
 
-      email: input.email,
-      phone: input.phone,
-
-      website: input.website,
-
-      industry: input.industry,
-
-      country: input.country,
-      currency: input.currency,
-
-      primaryColor: input.primaryColor,
-      secondaryColor: input.secondaryColor,
-    });
-
-    console.log("✅ Business created:", business.id);
-
-    // ==========================================
-    // STEP 3 - Create Program
-    // ==========================================
-
-    console.log("③ Creating loyalty program...");
-
-    const program = await createProgram({
-      businessId: business.id,
-
-      name: `${input.businessName} Rewards`,
-
-      loyaltyType: input.loyaltyType,
-
-      primaryColor: input.primaryColor,
-      secondaryColor: input.secondaryColor,
-
-      welcomeMessage: input.welcomeMessage,
-
-      website: input.website,
-
-      phone: input.phone,
-
-      address: input.address,
-    });
-
-    console.log("✅ Program created:", program.id);
-
-    // ==========================================
-    // STEP 4 - Create Scanner
-    // ==========================================
-
-    console.log("④ Creating scanner...");
-
-    const scanner = await createScanner({
-      businessId: business.id,
-      programId: program.id,
-    });
-
-    console.log("✅ Scanner created:", scanner.id);
-
-    // ==========================================
-    // STEP 5 - Create Rewards
-    // ==========================================
-
-    console.log("⑤ Creating default rewards...");
-
-    const rewards = await createDefaultRewards({
-      programId: program.id,
-    });
-
-    console.log(`✅ ${rewards.length} rewards created`);
-
-    console.log(
-      `🎉 Workspace created successfully in ${
-        Date.now() - started
-      }ms`
-    );
-
-    return {
-      success: true,
-      user,
-      business,
-      program,
-      scanner,
-      rewards,
-    };
-  } catch (error) {
-    console.error("❌ Workspace creation failed");
+  } catch (error: any) {
     console.error(error);
 
-    throw error;
+    return NextResponse.json(
+      {
+        success: false,
+        error:
+          error?.message ??
+          "Failed to create workspace.",
+      },
+      {
+        status: 500,
+      }
+    );
   }
 }
