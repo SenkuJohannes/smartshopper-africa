@@ -29,10 +29,15 @@ export default function Home() {
             href="/onboarding/welcome"
             className="rounded-xl bg-green-600 px-8 py-4 text-lg font-semibold text-white transition hover:bg-green-700"
           >
-            Start Free
+            Create a business account
           </Link>
 
-        
+          <Link
+  href="/login"
+  className="rounded-xl border border-slate-300 bg-white px-8 py-4 text-lg font-semibold text-slate-700 transition hover:bg-slate-100"
+>
+  Login your business account
+</Link>
 
         </div>
 
